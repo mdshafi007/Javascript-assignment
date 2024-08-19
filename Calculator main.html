@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #0f0d0d;
+            color: #ffffff;
+        }
+        .title {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        .calculator {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            width: 280px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .display {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            background-color: #fafafa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+        }
+        #input-string {
+            width: 100%;
+            font-size: 1.5em;
+            border: none;
+            background-color: transparent;
+            text-align: right;
+            color: #333;
+            outline: none;
+            padding: 5px 0;
+            margin-bottom: 10px;
+        }
+        #result {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #333;
+            margin-top: 5px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            padding: 15px;
+            background-color: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.2em;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        button:hover {
+            background-color: #1b1919;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        .operator {
+            background-color: #ffa500;
+            color: white;
+        }
+        .equals {
+            grid-column: span 4;
+            background-color: #4CAF50;
+            color: white;
+        }
+        button:active {
+            transform: scale(0.96);
+            background-color: #ddd;
+        }
+        footer {
+            margin-top: 20px;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Calculator using JavaScript</h1>
+    <div class="calculator">
+        <div class="display">
+            <input type="text" id="input-string" readonly>
+            <div id="result">0</div>
+        </div>
+        <div class="buttons">
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button class="operator" onclick="appendOperator('/')">÷</button>
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button class="operator" onclick="appendOperator('*')">×</button>
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button class="operator" onclick="appendOperator('-')">−</button>
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="deleteLast()">Del</button>
+            <button class="operator" onclick="appendOperator('+')">+</button>
+            <button class="equals" onclick="calculate()">=</button>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Mahammad Shafi. All rights reserved.</p>
+    </footer>
+    <script>
+        function appendNumber(number) {
+            const inputString = document.getElementById('input-string');
+            inputString.value += number;
+        }
+
+        function appendOperator(operator) {
+            const inputString = document.getElementById('input-string');
+            inputString.value += operator;
+        }
+
+        function clearDisplay() {
+            document.getElementById('input-string').value = '';
+            document.getElementById('result').innerText = '0';
+        }
+
+        function deleteLast() {
+            const inputString = document.getElementById('input-string');
+            inputString.value = inputString.value.slice(0, -1);
+        }
+
+        function calculate() {
+            const inputString = document.getElementById('input-string').value;
+            try {
+                const result = eval(inputString);
+                document.getElementById('result').innerText = result;
+            } catch {
+                document.getElementById('result').innerText = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>

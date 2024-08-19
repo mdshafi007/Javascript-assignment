@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Person Profile Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .info-group {
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        .info-value {
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Person Profile Manager</h2>
+        <div class="input-group">
+            <label for="firstNameInput">First Name</label>
+            <input type="text" id="firstNameInput">
+        </div>
+        <div class="input-group">
+            <label for="lastNameInput">Last Name</label>
+            <input type="text" id="lastNameInput">
+        </div>
+        <div class="input-group">
+            <label for="ageInput">Age</label>
+            <input type="number" id="ageInput">
+        </div>
+        <button onclick="updatePerson()">Update Profile</button>
+        
+        <div class="info-group">
+            <div class="info-item">
+                <span class="info-label">Full Name:</span>
+                <span class="info-value" id="fullName"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Age:</span>
+                <span class="info-value" id="age"></span>
+            </div>
+        </div>
+        <button onclick="incrementPersonAge()">Increase Age</button>
+    </div>
+
+    <script>
+        let Person = {
+            firstName: "",
+            lastName: "",
+            age: 0,
+
+            getFullName: function() {
+                return this.firstName + " " + this.lastName;
+            },
+
+            incrementAge: function() {
+                this.age += 1;
+            }
+        };
+
+        function updatePerson() {
+            const firstName = document.getElementById('firstNameInput').value;
+            const lastName = document.getElementById('lastNameInput').value;
+            const age = parseInt(document.getElementById('ageInput').value, 10);
+
+            Person.firstName = firstName;
+            Person.lastName = lastName;
+            Person.age = isNaN(age) ? 0 : age;
+
+            updatePersonInfo();
+        }
+
+        function updatePersonInfo() {
+            document.getElementById('fullName').textContent = Person.getFullName();
+            document.getElementById('age').textContent = Person.age;
+        }
+
+        function incrementPersonAge() {
+            Person.incrementAge();
+            updatePersonInfo();
+        }
+
+        // Initialize the person info on page load
+        updatePersonInfo();
+    </script>
+</body>
+</html>
